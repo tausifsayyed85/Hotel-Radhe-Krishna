@@ -1,0 +1,6 @@
+{
+  "name": "Hotel Radha Krishna",
+  "description": "Hotel Radha Krishna in Kandari, Bhusawal - Pure Veg Restaurant, Lodging & Boarding, contemporary rooms, dining menu, and guest services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

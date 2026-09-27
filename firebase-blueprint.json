@@ -1,0 +1,156 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with authentication and role",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "User avatar URL"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["guest", "admin"],
+          "description": "Role of the user"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of user creation"
+        }
+      },
+      "required": ["email", "displayName", "role"]
+    },
+    "Enquiry": {
+      "title": "Enquiry",
+      "description": "Hotel accommodation or event reservation enquiry submitted by guests",
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100,
+          "description": "Guest full name"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 15,
+          "description": "Guest contact number"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Guest contact email"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["room_booking", "restaurant_table", "event_banquet", "general"],
+          "description": "Enquiry category"
+        },
+        "checkInDate": {
+          "type": "string",
+          "description": "Requested check-in date"
+        },
+        "checkOutDate": {
+          "type": "string",
+          "description": "Requested check-out date"
+        },
+        "guestsCount": {
+          "type": "number",
+          "description": "Number of guests"
+        },
+        "roomPreference": {
+          "type": "string",
+          "description": "Room type preference"
+        },
+        "specialRequests": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Any special notes or requirements"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "contacted", "confirmed", "archived"],
+          "description": "Enquiry lifecycle state"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when submitted"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of user if signed in, or guest"
+        }
+      },
+      "required": ["fullName", "mobileNumber", "type", "status", "createdAt"]
+    },
+    "MenuItem": {
+      "title": "MenuItem",
+      "description": "Pure vegetarian menu item verified from restaurant inventory",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Dish title"
+        },
+        "category": {
+          "type": "string",
+          "description": "Menu category (Soups, Starters, Main Course, Tandoor, etc.)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed ingredients or preparation style"
+        },
+        "price": {
+          "type": "string",
+          "description": "Verified price or 'Price on Request'"
+        },
+        "isVeg": {
+          "type": "boolean",
+          "description": "Strictly 100% Pure Vegetarian"
+        },
+        "isPopular": {
+          "type": "boolean",
+          "description": "Signature recommended dish"
+        },
+        "available": {
+          "type": "boolean",
+          "description": "Whether currently available in kitchen"
+        },
+        "source": {
+          "type": "string",
+          "description": "Verified restaurant source label (e.g. Zomato / Official)"
+        },
+        "lastVerified": {
+          "type": "string",
+          "description": "Date verified"
+        }
+      },
+      "required": ["name", "category", "isVeg", "available"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/enquiries/{enquiryId}": {
+      "schema": "Enquiry",
+      "description": "Customer enquiries for room bookings and restaurant inquiries"
+    },
+    "/menuItems/{itemId}": {
+      "schema": "MenuItem",
+      "description": "Restaurant menu items with pure veg verification"
+    }
+  }
+}
